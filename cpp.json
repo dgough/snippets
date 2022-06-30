@@ -1,0 +1,157 @@
+{
+    // Place your snippets for cpp here. Each snippet is defined under a snippet name and has a prefix, body and
+    // description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+    // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+    // same ids are connected.
+    // Example:
+    // "Print to console": {
+    // 	"prefix": "log",
+    // 	"body": [
+    // 		"console.log('$1');",
+    // 		"$2"
+    // 	],
+    // 	"description": "Log output to console"
+    // }
+    "std::move": {
+        "prefix": "move",
+        "description": "std::move(expression)",
+        "body": [
+            "std::move(${1:/*expression*/})$0"
+        ]
+    },
+    "std::shared_ptr": {
+        "prefix": "shared",
+        "description": "std::shared_ptr<type>(expression)",
+        "body": [
+            "std::shared_ptr<${1:/*type*/}>(${2:/*expression*/})$0"
+        ]
+    },
+    "std::unique_ptr": {
+        "prefix": "unique",
+        "description": "std::unique_ptr<type>(expression)",
+        "body": [
+            "std::unique_ptr<${1:/*type*/}>(${2:/*expression*/})$0"
+        ]
+    },
+    "static_cast": {
+        "prefix": "sc",
+        "description": "static_cast<type>(expression)",
+        "body": [
+            "static_cast<${1:uint32_t}>(${2:/*expression*/})$0"
+        ]
+    },
+    "std::vector": {
+        "prefix": "vector",
+        "description": "std::vector<type>",
+        "body": [
+            "std::vector<${1:/*type*/}>$0"
+        ]
+    },
+    "std::unordered_map": {
+        "prefix": "umap",
+        "description": "std::unordered_map<key, value>",
+        "body": [
+            "std::unordered_map<${1:/*key*/}, ${2:/*value*/}>$0"
+        ]
+    },
+    "u8": {
+        "prefix": "u8",
+        "description": "uint8_t",
+        "body": [
+            "uint8_t"
+        ]
+    },
+    "u16": {
+        "prefix": "u16",
+        "description": "uint16_t",
+        "body": [
+            "uint16_t"
+        ]
+    },
+    "u32": {
+        "prefix": "u32",
+        "description": "uint32_t",
+        "body": [
+            "uint32_t"
+        ]
+    },
+    "u64": {
+        "prefix": "u64",
+        "description": "uint64_t",
+        "body": [
+            "uint64_t"
+        ]
+    },
+    "i8": {
+        "prefix": "i8",
+        "description": "int8_t",
+        "body": [
+            "int8_t"
+        ]
+    },
+    "i16": {
+        "prefix": "i16",
+        "description": "int16_t",
+        "body": [
+            "int16_t"
+        ]
+    },
+    "i32": {
+        "prefix": "i32",
+        "description": "int32_t",
+        "body": [
+            "int32_t"
+        ]
+    },
+    "i64": {
+        "prefix": "i64",
+        "description": "int64_t",
+        "body": [
+            "int64_t"
+        ]
+    },
+    "size_t": {
+        "prefix": "size_t",
+        "description": "size_t",
+        "body": [
+            "size_t"
+        ]
+    },
+    "str": {
+        "prefix": "str",
+        "description": "std::string",
+        "body": [
+            "std::string"
+        ]
+    },
+    "wstr": {
+        "prefix": "wstr",
+        "description": "std::wstring",
+        "body": [
+            "std::wstring"
+        ]
+    },
+    "null": {
+        "prefix": "null",
+        "description": "nullptr",
+        "body": [
+            "nullptr"
+        ]
+    },
+    "XR_NULL_HANDLE": {
+        "prefix": "xrnull",
+        "description": "XR_NULL_HANDLE",
+        "body": [
+            "XR_NULL_HANDLE"
+        ]
+    },
+    "for": {
+        "prefix": "for",
+        "description": "for loop",
+        "body": [
+            "for (${1:size_t} i = 0; i < ${1:length}; ++i) {",
+            "    $0",
+            "}"
+        ]
+    }
+}

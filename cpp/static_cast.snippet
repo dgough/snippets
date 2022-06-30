@@ -3,29 +3,27 @@
     <CodeSnippet Format="1.0.0">
         <Header>
             <Title>static_cast</Title>
-            <Author>Darryl Gough</Author>
             <Description>static_cast&lt;type&gt;(expression);</Description>
             <Shortcut>sc</Shortcut>
             <SnippetTypes>
                 <SnippetType>Expansion</SnippetType>
+                <SnippetType>SurroundsWith</SnippetType>
             </SnippetTypes>
         </Header>
         <Snippet>
-			<Declarations>
-				<Literal>
-					<ID>type</ID>
-					<Default>uint32_t</Default>
-					<ToolTip>type</ToolTip>
-				</Literal>
-				<Literal>
-					<ID>expression</ID>
-					<ToolTip>Expression to evaluate</ToolTip>
-					<Default>expression</Default>
-				</Literal>
-			</Declarations>
-            <Code Language="CPP">
-                <![CDATA[static_cast<$type$>($expression$);$end$]]>
-            </Code>
+            <Declarations>
+                <Literal>
+                    <ID>type</ID>
+                    <Default>uint32_t</Default>
+                    <ToolTip>type</ToolTip>
+                </Literal>
+                <Literal>
+                    <ID>selected</ID>
+                    <Default>/*expression*/</Default>
+                    <ToolTip>Expression</ToolTip>
+                </Literal>
+            </Declarations>
+            <Code Language="CPP"><![CDATA[static_cast<$type$>($selected$)$end$]]></Code>
         </Snippet>
     </CodeSnippet>
 </CodeSnippets>

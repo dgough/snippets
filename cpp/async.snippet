@@ -2,9 +2,9 @@
 <CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
     <CodeSnippet Format="1.0.0">
         <Header>
-            <Title>vector</Title>
-            <Description>std::vector&lt;type&gt;</Description>
-            <Shortcut>vec</Shortcut>
+            <Title>async</Title>
+            <Description>std::async(std::launch::async, /*lambda*/);</Description>
+            <Shortcut>async</Shortcut>
             <SnippetTypes>
                 <SnippetType>Expansion</SnippetType>
             </SnippetTypes>
@@ -12,12 +12,12 @@
         <Snippet>
             <Declarations>
                 <Literal>
-                    <ID>type</ID>
-                    <Default>uint8_t</Default>
-                    <ToolTip>type</ToolTip>
+                    <ID>body</ID>
+                    <Default>/*body*/</Default>
+                    <ToolTip>Body</ToolTip>
                 </Literal>
             </Declarations>
-            <Code Language="CPP"><![CDATA[std::vector<$type$> $end$]]></Code>
+            <Code Language="CPP"><![CDATA[std::async(std::launch::async, [](){$body$});$end$]]></Code>
         </Snippet>
     </CodeSnippet>
 </CodeSnippets>
