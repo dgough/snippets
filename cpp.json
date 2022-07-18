@@ -21,16 +21,16 @@
     },
     "std::shared_ptr": {
         "prefix": "shared",
-        "description": "std::shared_ptr<type>(expression)",
+        "description": "std::shared_ptr<type>",
         "body": [
-            "std::shared_ptr<${1:/*type*/}>(${2:/*expression*/})$0"
+            "std::shared_ptr<${1:/*type*/}>$0"
         ]
     },
     "std::unique_ptr": {
         "prefix": "unique",
-        "description": "std::unique_ptr<type>(expression)",
+        "description": "std::unique_ptr<type>",
         "body": [
-            "std::unique_ptr<${1:/*type*/}>(${2:/*expression*/})$0"
+            "std::unique_ptr<${1:/*type*/}>$0"
         ]
     },
     "static_cast": {
@@ -110,13 +110,6 @@
             "int64_t"
         ]
     },
-    "size_t": {
-        "prefix": "size_t",
-        "description": "size_t",
-        "body": [
-            "size_t"
-        ]
-    },
     "str": {
         "prefix": "str",
         "description": "std::string",
@@ -129,13 +122,6 @@
         "description": "std::wstring",
         "body": [
             "std::wstring"
-        ]
-    },
-    "null": {
-        "prefix": "null",
-        "description": "nullptr",
-        "body": [
-            "nullptr"
         ]
     },
     "XR_NULL_HANDLE": {
@@ -152,6 +138,27 @@
             "for (${1:size_t} i = 0; i < ${1:length}; ++i) {",
             "    $0",
             "}"
+        ]
+    },
+    "size_t": {
+        "prefix": "size_t",
+        "description": "size_t",
+        "body": [
+            "size_t"
+        ]
+    },
+    "nullptr": {
+        "prefix": "nullptr",
+        "description": "nullptr",
+        "body": [
+            "nullptr"
+        ]
+    },
+    "nano": {
+        "prefix": "nano",
+        "description": "std::chrono::nanoseconds",
+        "body": [
+            "std::chrono::nanoseconds"
         ]
     }
 }

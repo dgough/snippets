@@ -1,15 +1,14 @@
 #!/usr/bin/python3
-
-from collections import namedtuple
 from collections import OrderedDict
 import html
 import json
+import os
 import clipboard
 
 DIR = 'cpp'
-
-VSCODE_JSON_PATH = r'C:/Users/dagough/AppData/Roaming/Code/User/snippets/cpp.json'
-
+# %USERPROFILE%\AppData\Roaming\Code\User\snippets
+VSCODE_JSON_INPUT_PATH = (os.environ['USERPROFILE'] + '/AppData/Roaming/Code/User/snippets/cpp.json').replace('\\','/')
+VSCODE_JSON_OUTPUT_PATH = r'cpp.json'
 
 def is_comment(s):
     return s.strip().startswith('//')
@@ -79,6 +78,30 @@ class Snippet:
         return obj
 
 
+def gen_vscode_json(snippets):
+    comments_lines, json_lines = [], []
+    with open(VSCODE_JSON_INPUT_PATH) as f:
+        for line in f:
+            if is_comment(line):
+                comments_lines.append(line)
+            else:
+                json_lines.append(line)
+    objects = json.loads(''.join(json_lines))
+    # objects = {}
+    for sn in snippets:
+        objects[sn.title] = sn.vscode_json()
+    json_text = json.dumps(objects, indent=4, sort_keys=False)
+    assert json_text.startswith('{\n')
+    json_text = json_text[2:]
+    json_text = '{\n' + ''.join(comments_lines) + json_text
+    return json_text
+
+
+def write_to_file(filename, text):
+    with open(filename, 'w') as fp:
+        fp.write(text)
+
+
 def main():
     types = OrderedDict([
         ('u8', 'uint8_t'),
@@ -92,7 +115,7 @@ def main():
         ('size_t', 'size_t'),
         ('str', 'std::string'),
         ('wstr', 'std::wstring'),
-        ('null', 'nullptr'),
+        ('nullptr', 'nullptr'),
         ('nano', 'std::chrono::nanoseconds'),
     ])
     # for shortcut, typename in types.items():
@@ -112,7 +135,7 @@ def main():
                             vscode=VsCodeSnippet(
                                 r'std::move(${1:/*expression*/})$0')
                             ))
-    snippets.append(Snippet(title='shared_ptr',
+    snippets.append(Snippet(title='std::shared_ptr',
                             shortcut='shared',
                             description='std::shared_ptr<type>',
                             code='std::shared_ptr<$selected$>$end$',
@@ -171,23 +194,8 @@ def main():
     for sn in snippets:
         output.append(sn.xml_str())
 
-    comments_lines, json_lines = [], []
-    with open(VSCODE_JSON_PATH) as f:
-        for line in f:
-            if is_comment(line):
-                comments_lines.append(line)
-            else:
-                json_lines.append(line)
-
-    # objects = json.loads(''.join(json_lines))
-    objects = {}
-    for sn in snippets:
-        objects[sn.title] = sn.vscode_json()
-    json_text = json.dumps(objects, indent=4, sort_keys=False)
-    assert json_text.startswith('{\n')
-    json_text = json_text[2:]
-
-    json_text = '{\n' + ''.join(comments_lines) + json_text
+    json_text = gen_vscode_json(snippets)
+    write_to_file(VSCODE_JSON_OUTPUT_PATH, json_text)
 
     output.append(json_text)
     text = '\n'.join(output)
