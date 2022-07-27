@@ -4,20 +4,17 @@
         <Header>
             <Title>vector</Title>
             <Description>std::vector&lt;type&gt;</Description>
-            <Shortcut>vec</Shortcut>
-            <SnippetTypes>
-                <SnippetType>Expansion</SnippetType>
-            </SnippetTypes>
+            <Shortcut>vector</Shortcut>
         </Header>
         <Snippet>
             <Declarations>
                 <Literal>
-                    <ID>type</ID>
-                    <Default>uint8_t</Default>
-                    <ToolTip>type</ToolTip>
+                    <ID>selected</ID>
+                    <Default>/*type*/</Default>
+                    <ToolTip>Selected</ToolTip>
                 </Literal>
             </Declarations>
-            <Code Language="CPP"><![CDATA[std::vector<$type$> $end$]]></Code>
+            <Code Language="CPP"><![CDATA[std::vector<$selected$>$end$]]></Code>
         </Snippet>
     </CodeSnippet>
 </CodeSnippets>

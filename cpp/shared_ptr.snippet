@@ -3,19 +3,15 @@
     <CodeSnippet Format="1.0.0">
         <Header>
             <Title>shared_ptr</Title>
-            <Description>shared_ptr&lt;type&gt;</Description>
+            <Description>std::shared_ptr&lt;type&gt;</Description>
             <Shortcut>shared_ptr</Shortcut>
-            <SnippetTypes>
-                <SnippetType>Expansion</SnippetType>
-                <SnippetType>SurroundsWith</SnippetType>
-            </SnippetTypes>
         </Header>
         <Snippet>
             <Declarations>
                 <Literal>
                     <ID>selected</ID>
                     <Default>/*type*/</Default>
-                    <ToolTip>Type</ToolTip>
+                    <ToolTip>Selected</ToolTip>
                 </Literal>
             </Declarations>
             <Code Language="CPP"><![CDATA[std::shared_ptr<$selected$>$end$]]></Code>

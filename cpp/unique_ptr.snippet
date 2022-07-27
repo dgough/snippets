@@ -3,19 +3,15 @@
     <CodeSnippet Format="1.0.0">
         <Header>
             <Title>unique_ptr</Title>
-            <Description>unique_ptr&lt;type&gt;</Description>
+            <Description>std::unique_ptr&lt;type&gt;</Description>
             <Shortcut>unique_ptr</Shortcut>
-            <SnippetTypes>
-                <SnippetType>Expansion</SnippetType>
-                <SnippetType>SurroundsWith</SnippetType>
-            </SnippetTypes>
         </Header>
         <Snippet>
             <Declarations>
                 <Literal>
                     <ID>selected</ID>
                     <Default>/*type*/</Default>
-                    <ToolTip>Type</ToolTip>
+                    <ToolTip>Selected</ToolTip>
                 </Literal>
             </Declarations>
             <Code Language="CPP"><![CDATA[std::unique_ptr<$selected$>$end$]]></Code>

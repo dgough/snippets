@@ -3,26 +3,23 @@
     <CodeSnippet Format="1.0.0">
         <Header>
             <Title>unordered_map</Title>
-            <Description>std::unordered_map&lt;type&gt;</Description>
+            <Description>std::unordered_map&lt;key, value&gt;</Description>
             <Shortcut>umap</Shortcut>
-            <SnippetTypes>
-                <SnippetType>Expansion</SnippetType>
-            </SnippetTypes>
         </Header>
         <Snippet>
             <Declarations>
                 <Literal>
                     <ID>key</ID>
-                    <Default>std::string</Default>
-                    <ToolTip>type</ToolTip>
+                    <Default>/*key*/</Default>
+                    <ToolTip>Key</ToolTip>
                 </Literal>
                 <Literal>
                     <ID>value</ID>
-                    <Default>std::string</Default>
-                    <ToolTip>type</ToolTip>
+                    <Default>/*value*/</Default>
+                    <ToolTip>Value</ToolTip>
                 </Literal>
             </Declarations>
-            <Code Language="CPP"><![CDATA[std::unordered_map<$key$, $value$> $end$]]></Code>
+            <Code Language="CPP"><![CDATA[std::unordered_map<$key$, $value$>$end$]]></Code>
         </Snippet>
     </CodeSnippet>
 </CodeSnippets>

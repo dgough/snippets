@@ -3,24 +3,20 @@
     <CodeSnippet Format="1.0.0">
         <Header>
             <Title>static_cast</Title>
-            <Description>static_cast&lt;type&gt;(expression);</Description>
+            <Description>static_cast&lt;type&gt;(expression)</Description>
             <Shortcut>sc</Shortcut>
-            <SnippetTypes>
-                <SnippetType>Expansion</SnippetType>
-                <SnippetType>SurroundsWith</SnippetType>
-            </SnippetTypes>
         </Header>
         <Snippet>
             <Declarations>
                 <Literal>
                     <ID>type</ID>
                     <Default>uint32_t</Default>
-                    <ToolTip>type</ToolTip>
+                    <ToolTip>Type</ToolTip>
                 </Literal>
                 <Literal>
                     <ID>selected</ID>
                     <Default>/*expression*/</Default>
-                    <ToolTip>Expression</ToolTip>
+                    <ToolTip>Selected</ToolTip>
                 </Literal>
             </Declarations>
             <Code Language="CPP"><![CDATA[static_cast<$type$>($selected$)$end$]]></Code>

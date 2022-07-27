@@ -4,6 +4,7 @@ import html
 import json
 import os
 import clipboard
+from typing import List
 
 DIR = 'cpp'
 # %USERPROFILE%\AppData\Roaming\Code\User\snippets
@@ -53,8 +54,7 @@ class Snippet:
 
     def xml_str(self):
         # Make sure there is no line break before </Code>
-        return f'''
-<?xml version="1.0" encoding="utf-8"?>
+        return f'''<?xml version="1.0" encoding="utf-8"?>
 <CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
     <CodeSnippet Format="1.0.0">
         <Header>
@@ -66,8 +66,7 @@ class Snippet:
             <Code Language="CPP"><![CDATA[{self.code}]]></Code>
         </Snippet>
     </CodeSnippet>
-</CodeSnippets>
-'''
+</CodeSnippets>'''
 
     def vscode_json(self):
         obj = {}
@@ -97,9 +96,22 @@ def gen_vscode_json(snippets):
     return json_text
 
 
-def write_to_file(filename, text):
+def write_to_file(filename, text: str):
     with open(filename, 'w') as fp:
         fp.write(text)
+
+
+def snippet_filename(name: str):
+    name = name.replace('std::', '').replace('::', '_')
+    return name + '.snippet'
+
+
+def add_new_snippet_files(snippets: List[Snippet]):
+    for snippet in snippets:
+        filepath = os.path.join(DIR, snippet_filename(snippet.title))
+        write_to_file(filepath, snippet.xml_str())
+        # if not os.path.exists(filepath):
+        #     write_to_file(filepath, snippet.xml_str())
 
 
 def main():
@@ -125,50 +137,52 @@ def main():
 
     ExpressionLiteral = Literal('expression', '/*expression*/')
     TypeLiteral = Literal('type', '/*type*/')
+    SelectedTypeLiteral = Literal('selected', '/*type*/')
+    SelectedExpressionLiteral = Literal('selected', '/*expression*/')
 
     snippets = []
-    snippets.append(Snippet(title='std::move',
+    snippets.append(Snippet(title='move',
                             shortcut='move',
                             description='std::move(expression)',
-                            code='std::move($expression$)$end$',
-                            literals=[ExpressionLiteral],
+                            code='std::move($selected$)$end$',
+                            literals=[SelectedExpressionLiteral],
                             vscode=VsCodeSnippet(
                                 r'std::move(${1:/*expression*/})$0')
                             ))
-    snippets.append(Snippet(title='std::shared_ptr',
-                            shortcut='shared',
+    snippets.append(Snippet(title='shared_ptr',
+                            shortcut='shared_ptr',
                             description='std::shared_ptr<type>',
                             code='std::shared_ptr<$selected$>$end$',
-                            literals=[TypeLiteral],
+                            literals=[SelectedTypeLiteral],
                             vscode=VsCodeSnippet(
                                 r'std::shared_ptr<${1:/*type*/}>$0')
                             ))
-    snippets.append(Snippet(title='std::unique_ptr',
-                            shortcut='unique',
+    snippets.append(Snippet(title='unique_ptr',
+                            shortcut='unique_ptr',
                             description='std::unique_ptr<type>',
                             code='std::unique_ptr<$selected$>$end$',
-                            literals=[TypeLiteral],
+                            literals=[SelectedTypeLiteral],
                             vscode=VsCodeSnippet(
                                 r'std::unique_ptr<${1:/*type*/}>$0')
                             ))
     snippets.append(Snippet(title='static_cast',
                             shortcut='sc',
                             description='static_cast<type>(expression)',
-                            code='static_cast($expression$)$end$',
+                            code='static_cast<$type$>($selected$)$end$',
                             literals=[Literal('type', 'uint32_t'),
-                                      ExpressionLiteral],
+                                      SelectedExpressionLiteral],
                             vscode=VsCodeSnippet(
                                 r'static_cast<${1:uint32_t}>(${2:/*expression*/})$0')
                             ))
-    snippets.append(Snippet(title='std::vector',
+    snippets.append(Snippet(title='vector',
                             shortcut='vector',
                             description='std::vector<type>',
-                            code='std::unordered_map<$type$>$end$',
-                            literals=[Literal('type', '/*type*/')],
+                            code='std::vector<$selected$>$end$',
+                            literals=[SelectedTypeLiteral],
                             vscode=VsCodeSnippet(
                                 r'std::vector<${1:/*type*/}>$0')
                             ))
-    snippets.append(Snippet(title='std::unordered_map',
+    snippets.append(Snippet(title='unordered_map',
                             shortcut='umap',
                             description='std::unordered_map<key, value>',
                             code='std::unordered_map<$key$, $value$>$end$',
@@ -182,6 +196,21 @@ def main():
                             description='XR_NULL_HANDLE',
                             code='XR_NULL_HANDLE$end$',
                             vscode=VsCodeSnippet('XR_NULL_HANDLE')
+                            ))
+    # FMT
+    snippets.append(Snippet(title='fmt::print',
+                            shortcut='fprint',
+                            description='fmt::print',
+                            code=r'fmt::print("{}", $end$);',
+                            vscode=VsCodeSnippet(
+                                r'fmt::print("{}", $0);')
+                            ))
+    snippets.append(Snippet(title='fmt::println',
+                            shortcut='fprintln',
+                            description='fmt::println',
+                            code=r'fmt::print("{}\n", $end$);',
+                            vscode=VsCodeSnippet(
+                                r'fmt::print("{}\n", $0);')
                             ))
 
     output = []
@@ -202,6 +231,7 @@ def main():
     clipboard.copy(text)
     for line in output:
         print(line)
+    add_new_snippet_files(snippets)
 
 
 if __name__ == '__main__':
