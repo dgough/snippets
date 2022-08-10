@@ -8,8 +8,10 @@ from typing import List
 
 DIR = 'cpp'
 # %USERPROFILE%\AppData\Roaming\Code\User\snippets
-VSCODE_JSON_INPUT_PATH = (os.environ['USERPROFILE'] + '/AppData/Roaming/Code/User/snippets/cpp.json').replace('\\','/')
+VSCODE_JSON_INPUT_PATH = (
+    os.environ['USERPROFILE'] + '/AppData/Roaming/Code/User/snippets/cpp.json').replace('\\', '/')
 VSCODE_JSON_OUTPUT_PATH = r'cpp.json'
+
 
 def is_comment(s):
     return s.strip().startswith('//')
@@ -165,6 +167,22 @@ def main():
                             vscode=VsCodeSnippet(
                                 r'std::unique_ptr<${1:/*type*/}>$0')
                             ))
+    snippets.append(Snippet(title='make_unique',
+                            shortcut='make_unique',
+                            description='std::make_unique<type>()',
+                            code='std::make_unique<$selected$>($end$)',
+                            literals=[SelectedTypeLiteral],
+                            vscode=VsCodeSnippet(
+                                r'std::make_unique<${1:/*type*/}>($0)')
+                            ))
+    snippets.append(Snippet(title='make_shared',
+                            shortcut='make_shared',
+                            description='std::make_shared<type>()',
+                            code='std::make_shared<$selected$>($end$)',
+                            literals=[SelectedTypeLiteral],
+                            vscode=VsCodeSnippet(
+                                r'std::make_shared<${1:/*type*/}>($0)')
+                            ))
     snippets.append(Snippet(title='static_cast',
                             shortcut='sc',
                             description='static_cast<type>(expression)',
@@ -197,6 +215,15 @@ def main():
                             code='XR_NULL_HANDLE$end$',
                             vscode=VsCodeSnippet('XR_NULL_HANDLE')
                             ))
+    snippets.append(Snippet(title='interface',
+                            shortcut='interface',
+                            description='interface',
+                            code='struct $name$ {\n    virtual ~$name$() = default;$end$\n};',
+                            literals=[Literal('name', '/*name*/')],
+                            vscode=VsCodeSnippet(
+                                'struct $1 {\n    virtual ~$1() = default;$0\n};')
+                            ))
+
     # FMT
     snippets.append(Snippet(title='fmt::print',
                             shortcut='fprint',
