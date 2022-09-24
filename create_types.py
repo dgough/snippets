@@ -11,6 +11,7 @@ DIR = 'cpp'
 VSCODE_JSON_INPUT_PATH = (
     os.environ['USERPROFILE'] + '/AppData/Roaming/Code/User/snippets/cpp.json').replace('\\', '/')
 VSCODE_JSON_OUTPUT_PATH = r'cpp.json'
+SHOULD_UPDATE_VSCODE_JSON_FILE = False
 
 
 def is_comment(s):
@@ -137,10 +138,10 @@ def main():
     #     with open(filename, 'w') as fp:
     #         fp.write(type_text(shortcut, typename))
 
-    ExpressionLiteral = Literal('expression', '/*expression*/')
-    TypeLiteral = Literal('type', '/*type*/')
-    SelectedTypeLiteral = Literal('selected', '/*type*/')
-    SelectedExpressionLiteral = Literal('selected', '/*expression*/')
+    ExpressionLiteral = Literal('expression', 'expression')
+    TypeLiteral = Literal('type', 'type')
+    SelectedTypeLiteral = Literal('selected', 'type')
+    SelectedExpressionLiteral = Literal('selected', 'expression')
 
     snippets = []
     snippets.append(Snippet(title='move',
@@ -149,7 +150,7 @@ def main():
                             code='std::move($selected$)$end$',
                             literals=[SelectedExpressionLiteral],
                             vscode=VsCodeSnippet(
-                                r'std::move(${1:/*expression*/})$0')
+                                r'std::move(${1:expression})$0')
                             ))
     snippets.append(Snippet(title='shared_ptr',
                             shortcut='shared_ptr',
@@ -157,7 +158,7 @@ def main():
                             code='std::shared_ptr<$selected$>$end$',
                             literals=[SelectedTypeLiteral],
                             vscode=VsCodeSnippet(
-                                r'std::shared_ptr<${1:/*type*/}>$0')
+                                r'std::shared_ptr<${1:type}>$0')
                             ))
     snippets.append(Snippet(title='unique_ptr',
                             shortcut='unique_ptr',
@@ -165,7 +166,7 @@ def main():
                             code='std::unique_ptr<$selected$>$end$',
                             literals=[SelectedTypeLiteral],
                             vscode=VsCodeSnippet(
-                                r'std::unique_ptr<${1:/*type*/}>$0')
+                                r'std::unique_ptr<${1:type}>$0')
                             ))
     snippets.append(Snippet(title='make_unique',
                             shortcut='make_unique',
@@ -173,7 +174,7 @@ def main():
                             code='std::make_unique<$selected$>($end$)',
                             literals=[SelectedTypeLiteral],
                             vscode=VsCodeSnippet(
-                                r'std::make_unique<${1:/*type*/}>($0)')
+                                r'std::make_unique<${1:type}>($0)')
                             ))
     snippets.append(Snippet(title='make_shared',
                             shortcut='make_shared',
@@ -181,7 +182,7 @@ def main():
                             code='std::make_shared<$selected$>($end$)',
                             literals=[SelectedTypeLiteral],
                             vscode=VsCodeSnippet(
-                                r'std::make_shared<${1:/*type*/}>($0)')
+                                r'std::make_shared<${1:type}>($0)')
                             ))
     snippets.append(Snippet(title='static_cast',
                             shortcut='sc',
@@ -190,7 +191,7 @@ def main():
                             literals=[Literal('type', 'uint32_t'),
                                       SelectedExpressionLiteral],
                             vscode=VsCodeSnippet(
-                                r'static_cast<${1:uint32_t}>(${2:/*expression*/})$0')
+                                r'static_cast<${1:uint32_t}>(${2:expression})$0')
                             ))
     snippets.append(Snippet(title='vector',
                             shortcut='vector',
@@ -198,16 +199,25 @@ def main():
                             code='std::vector<$selected$>$end$',
                             literals=[SelectedTypeLiteral],
                             vscode=VsCodeSnippet(
-                                r'std::vector<${1:/*type*/}>$0')
+                                r'std::vector<${1:type}>$0')
                             ))
     snippets.append(Snippet(title='unordered_map',
                             shortcut='umap',
                             description='std::unordered_map<key, value>',
                             code='std::unordered_map<$key$, $value$>$end$',
-                            literals=[Literal('key', '/*key*/'),
-                                      Literal('value', '/*value*/')],
+                            literals=[Literal('key', 'key'),
+                                      Literal('value', 'value')],
                             vscode=VsCodeSnippet(
-                                r'std::unordered_map<${1:/*key*/}, ${2:/*value*/}>$0')
+                                r'std::unordered_map<${1:key}, ${2:value}>$0')
+                            ))
+    snippets.append(Snippet(title='array',
+                            shortcut='array',
+                            description='std::array<type, size>',
+                            code='std::array<$selected$, $size$>$end$',
+                            literals=[Literal('selected', 'type'),
+                                      Literal('size', 'size')],
+                            vscode=VsCodeSnippet(
+                                r'std::array<${1:type}, ${2:size}>$0')
                             ))
     snippets.append(Snippet(title='XR_NULL_HANDLE',
                             shortcut='xrnull',
@@ -219,9 +229,47 @@ def main():
                             shortcut='interface',
                             description='interface',
                             code='struct $name$ {\n    virtual ~$name$() = default;$end$\n};',
-                            literals=[Literal('name', '/*name*/')],
+                            literals=[Literal('name', 'name')],
                             vscode=VsCodeSnippet(
                                 'struct $1 {\n    virtual ~$1() = default;$0\n};')
+                            ))
+    snippets.append(Snippet(title='const_ref',
+                            shortcut='const_ref',
+                            description='const_ref',
+                            code='const $name$&$end$',
+                            literals=[Literal('name', 'name')],
+                            vscode=VsCodeSnippet(
+                                'const ${1:name}&')
+                            ))
+
+    # Iter
+    snippets.append(Snippet(title='begin_end',
+                            shortcut='begin_end',
+                            description='var.begin(), var.end()',
+                            code=r'$var$.begin(), $var$.end()',
+                            literals=[Literal('var', 'var')],
+                            vscode=VsCodeSnippet(
+                                r'${1:name}.begin(), ${1:name}.end()$0')
+                            ))
+
+    snippets.append(Snippet(title='TLArg',
+                            shortcut='TLArg',
+                            description='TLArg(name, "name")',
+                            code=r'TLArg($selected$, "$selected$")($end$)',
+                            literals=[SelectedTypeLiteral],
+                            vscode=VsCodeSnippet(
+                                r'TLArg(${1:name}, "${1:name}")$0')
+                            ))
+
+    # If find
+    snippets.append(Snippet(title='if_map_find',
+                            shortcut='if_map_find',
+                            description=r'if (auto it = m.find(key); it != m.end()) {}',
+                            code='if (auto it = $map$.find($key$); it != $map$.end()){$end$}',
+                            literals=[Literal('map', 'map'),
+                                      Literal('key', 'key')],
+                            vscode=VsCodeSnippet(
+                                r'if (auto it = ${1:map}.find(${2:key}); it != ${1:map}.end()){$0}')
                             ))
 
     # FMT

@@ -2,19 +2,19 @@
 <CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
     <CodeSnippet Format="1.0.0">
         <Header>
-            <Title>move</Title>
-            <Description>std::move(expression)</Description>
-            <Shortcut>move</Shortcut>
+            <Title>begin_end</Title>
+            <Description>var.begin(), var.end()</Description>
+            <Shortcut>begin_end</Shortcut>
         </Header>
         <Snippet>
             <Declarations>
                 <Literal>
-                    <ID>selected</ID>
-                    <Default>expression</Default>
-                    <ToolTip>Selected</ToolTip>
+                    <ID>var</ID>
+                    <Default>var</Default>
+                    <ToolTip>Var</ToolTip>
                 </Literal>
             </Declarations>
-            <Code Language="CPP"><![CDATA[std::move($selected$)$end$]]></Code>
+            <Code Language="CPP"><![CDATA[$var$.begin(), $var$.end()]]></Code>
         </Snippet>
     </CodeSnippet>
 </CodeSnippets>

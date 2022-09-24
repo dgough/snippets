@@ -2,9 +2,9 @@
 <CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
     <CodeSnippet Format="1.0.0">
         <Header>
-            <Title>make_shared</Title>
-            <Description>std::make_shared&lt;type&gt;()</Description>
-            <Shortcut>make_shared</Shortcut>
+            <Title>array</Title>
+            <Description>std::array&lt;type, size&gt;</Description>
+            <Shortcut>array</Shortcut>
         </Header>
         <Snippet>
             <Declarations>
@@ -13,8 +13,13 @@
                     <Default>type</Default>
                     <ToolTip>Selected</ToolTip>
                 </Literal>
+                <Literal>
+                    <ID>size</ID>
+                    <Default>size</Default>
+                    <ToolTip>Size</ToolTip>
+                </Literal>
             </Declarations>
-            <Code Language="CPP"><![CDATA[std::make_shared<$selected$>($end$)]]></Code>
+            <Code Language="CPP"><![CDATA[std::array<$selected$, $size$>$end$]]></Code>
         </Snippet>
     </CodeSnippet>
 </CodeSnippets>

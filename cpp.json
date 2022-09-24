@@ -16,7 +16,7 @@
         "prefix": "sc",
         "description": "static_cast<type>(expression)",
         "body": [
-            "static_cast<${1:uint32_t}>(${2:/*expression*/})$0"
+            "static_cast<${1:uint32_t}>(${2:expression})$0"
         ]
     },
     "u8": {
@@ -100,7 +100,7 @@
         "prefix": "for",
         "description": "for loop",
         "body": [
-            "for (${1:size_t} i = 0; i < ${1:length}; ++i) {",
+            "for (${1:size_t} i = 0; i < ${2:length}; ++i) {",
             "    $0",
             "}"
         ]
@@ -130,14 +130,14 @@
         "prefix": "vector",
         "description": "std::vector<type>",
         "body": [
-            "std::vector<${1:/*type*/}>$0"
+            "std::vector<${1:type}>$0"
         ]
     },
     "unordered_map": {
         "prefix": "umap",
         "description": "std::unordered_map<key, value>",
         "body": [
-            "std::unordered_map<${1:/*key*/}, ${2:/*value*/}>$0"
+            "std::unordered_map<${1:key}, ${2:value}>$0"
         ]
     },
     "interface": {
@@ -165,35 +165,77 @@
         "prefix": "move",
         "description": "std::move(expression)",
         "body": [
-            "std::move(${1:/*expression*/})$0"
+            "std::move(${1:expression})$0"
         ]
     },
     "shared_ptr": {
         "prefix": "shared_ptr",
         "description": "std::shared_ptr<type>",
         "body": [
-            "std::shared_ptr<${1:/*type*/}>$0"
+            "std::shared_ptr<${1:type}>$0"
         ]
     },
     "unique_ptr": {
         "prefix": "unique_ptr",
         "description": "std::unique_ptr<type>",
         "body": [
-            "std::unique_ptr<${1:/*type*/}>$0"
+            "std::unique_ptr<${1:type}>$0"
         ]
     },
     "make_unique": {
         "prefix": "make_unique",
         "description": "std::make_unique<type>()",
         "body": [
-            "std::make_unique<${1:/*type*/}>($0)"
+            "std::make_unique<${1:type}>($0)"
         ]
     },
     "make_shared": {
         "prefix": "make_shared",
         "description": "std::make_shared<type>()",
         "body": [
-            "std::make_shared<${1:/*type*/}>($0)"
+            "std::make_shared<${1:type}>($0)"
+        ]
+    },
+    "TLArg": {
+        "prefix": "TLArg",
+        "description": "TLArg(name, \"name\")",
+        "body": [
+            "TLArg(${1:name}, \"${1:name}\")$0"
+        ]
+    },
+    "array": {
+        "prefix": "array",
+        "description": "std::array<type, size>",
+        "body": [
+            "std::array<${1:type}, ${2:size}>$0"
+        ]
+    },
+    "if_find": {
+        "prefix": "if_find",
+        "description": "if (auto it = m.find(key); it != m.end()) {}",
+        "body": [
+            "if (auto it = ${1:map}.find(${2:key}); it != ${1:map}.end()){$0}"
+        ]
+    },
+    "begin_end": {
+        "prefix": "begin_end",
+        "description": "var.begin(), var.end()",
+        "body": [
+            "${1:name}.begin(), ${1:name}.end()$0"
+        ]
+    },
+    "if_map_find": {
+        "prefix": "if_map_find",
+        "description": "if (auto it = m.find(key); it != m.end()) {}",
+        "body": [
+            "if (auto it = ${1:map}.find(${2:key}); it != ${1:map}.end()){$0}"
+        ]
+    },
+    "const_ref": {
+        "prefix": "const_ref",
+        "description": "const_ref",
+        "body": [
+            "const ${1:name}&"
         ]
     }
 }
