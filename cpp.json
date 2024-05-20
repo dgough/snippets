@@ -1,22 +1,36 @@
 {
-    // Place your snippets for cpp here. Each snippet is defined under a snippet name and has a prefix, body and
-    // description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
-    // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
-    // same ids are connected.
-    // Example:
-    // "Print to console": {
-    // 	"prefix": "log",
-    // 	"body": [
-    // 		"console.log('$1');",
-    // 		"$2"
-    // 	],
-    // 	"description": "Log output to console"
-    // }
+	// Place your snippets for cpp here. Each snippet is defined under a snippet name and has a prefix, body and
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
     "static_cast": {
         "prefix": "sc",
         "description": "static_cast<type>(expression)",
         "body": [
-            "static_cast<${1:uint32_t}>(${2:expression})$0"
+            "static_cast<${1:uint32_t}>(${2:${TM_SELECTED_TEXT:expression}})$0"
+        ]
+    },
+    "XR_NULL_HANDLE": {
+        "prefix": "xrnull",
+        "description": "XR_NULL_HANDLE",
+        "body": [
+            "XR_NULL_HANDLE"
+        ]
+    },
+    "fmt::print": {
+        "prefix": "fprint",
+        "description": "fmt::print",
+        "body": [
+            "fmt::print(\"{}\", $0);"
         ]
     },
     "u8": {
@@ -75,6 +89,13 @@
             "int64_t"
         ]
     },
+    "size_t": {
+        "prefix": "size_t",
+        "description": "size_t",
+        "body": [
+            "size_t"
+        ]
+    },
     "str": {
         "prefix": "str",
         "description": "std::string",
@@ -87,29 +108,6 @@
         "description": "std::wstring",
         "body": [
             "std::wstring"
-        ]
-    },
-    "XR_NULL_HANDLE": {
-        "prefix": "xrnull",
-        "description": "XR_NULL_HANDLE",
-        "body": [
-            "XR_NULL_HANDLE"
-        ]
-    },
-    "for": {
-        "prefix": "for",
-        "description": "for loop",
-        "body": [
-            "for (${1:size_t} i = 0; i < ${2:length}; ++i) {",
-            "    $0",
-            "}"
-        ]
-    },
-    "size_t": {
-        "prefix": "size_t",
-        "description": "size_t",
-        "body": [
-            "size_t"
         ]
     },
     "nullptr": {
@@ -126,32 +124,46 @@
             "std::chrono::nanoseconds"
         ]
     },
+    "move": {
+        "prefix": "move",
+        "description": "std::move(expression)",
+        "body": [
+            "std::move(${1:${TM_SELECTED_TEXT:expression}})$0"
+        ]
+    },
+    "shared_ptr": {
+        "prefix": "shared_ptr",
+        "description": "std::shared_ptr<type>",
+        "body": [
+            "std::shared_ptr<${1:${TM_SELECTED_TEXT:type}}>$0"
+        ]
+    },
+    "unique_ptr": {
+        "prefix": "unique_ptr",
+        "description": "std::unique_ptr<type>",
+        "body": [
+            "std::unique_ptr<${1:${TM_SELECTED_TEXT:type}}>$0"
+        ]
+    },
     "vector": {
         "prefix": "vector",
         "description": "std::vector<type>",
         "body": [
-            "std::vector<${1:type}>$0"
+            "std::vector<${1:${TM_SELECTED_TEXT:type}}>$0"
+        ]
+    },
+    "array": {
+        "prefix": "array",
+        "description": "std::array<type, size>",
+        "body": [
+            "std::array<${1:${TM_SELECTED_TEXT:type}}, ${2:size}>$0"
         ]
     },
     "unordered_map": {
         "prefix": "umap",
         "description": "std::unordered_map<key, value>",
         "body": [
-            "std::unordered_map<${1:key}, ${2:value}>$0"
-        ]
-    },
-    "interface": {
-        "prefix": "interface",
-        "description": "interface",
-        "body": [
-            "struct $1 {\n    virtual ~$1() = default;$0\n};"
-        ]
-    },
-    "fmt::print": {
-        "prefix": "fprint",
-        "description": "fmt::print",
-        "body": [
-            "fmt::print(\"{}\", $0);"
+            "std::unordered_map<${1:/*key*/}, ${2:/*value*/}>$0"
         ]
     },
     "fmt::println": {
@@ -161,81 +173,53 @@
             "fmt::print(\"{}\\n\", $0);"
         ]
     },
-    "move": {
-        "prefix": "move",
-        "description": "std::move(expression)",
-        "body": [
-            "std::move(${1:expression})$0"
-        ]
-    },
-    "shared_ptr": {
-        "prefix": "shared_ptr",
-        "description": "std::shared_ptr<type>",
-        "body": [
-            "std::shared_ptr<${1:type}>$0"
-        ]
-    },
-    "unique_ptr": {
-        "prefix": "unique_ptr",
-        "description": "std::unique_ptr<type>",
-        "body": [
-            "std::unique_ptr<${1:type}>$0"
-        ]
-    },
     "make_unique": {
         "prefix": "make_unique",
         "description": "std::make_unique<type>()",
         "body": [
-            "std::make_unique<${1:type}>($0)"
+            "std::make_unique<${1:${TM_SELECTED_TEXT:type}}>($0)"
         ]
     },
     "make_shared": {
         "prefix": "make_shared",
         "description": "std::make_shared<type>()",
         "body": [
-            "std::make_shared<${1:type}>($0)"
+            "std::make_shared<${1:${TM_SELECTED_TEXT:type}}>($0)"
         ]
     },
-    "TLArg": {
-        "prefix": "TLArg",
-        "description": "TLArg(name, \"name\")",
+    "interface": {
+        "prefix": "interface",
+        "description": "interface",
         "body": [
-            "TLArg(${1:name}, \"${1:name}\")$0"
+            "struct $1 {\n    virtual ~$1() = default;$0\n};"
         ]
     },
-    "array": {
-        "prefix": "array",
-        "description": "std::array<type, size>",
+    "for_index": {
+        "prefix": "fori",
+        "description": "for (int = 0; i < len; ++i) {}",
         "body": [
-            "std::array<${1:type}, ${2:size}>$0"
+            "for (size_t ${2:i} = 0; $2 < ${1:len}; ++$2) {$0}"
         ]
     },
-    "if_find": {
-        "prefix": "if_find",
-        "description": "if (auto it = m.find(key); it != m.end()) {}",
+    "for_len": {
+        "prefix": ["for_len"],
+        "description": "for (int = 0; i < len; ++i) {}",
         "body": [
-            "if (auto it = ${1:map}.find(${2:key}); it != ${1:map}.end()){$0}"
+            "const int ${2:len} = ${1:${TM_SELECTED_TEXT:nums}};\nfor (size_t ${3:i} = 0; $3 < ${2:len}; ++$3) {\n$0\n}"
         ]
     },
-    "begin_end": {
-        "prefix": "begin_end",
-        "description": "var.begin(), var.end()",
+    "for_each": {
+        "prefix": ["for_each"],
+        "description": "for (const auto& value : items) {}",
         "body": [
-            "${1:name}.begin(), ${1:name}.end()$0"
+            "for (const auto& ${1:value} : ${2:items}) {\n$0\n}"
         ]
     },
-    "if_map_find": {
-        "prefix": "if_map_find",
-        "description": "if (auto it = m.find(key); it != m.end()) {}",
+    "sort": {
+        "prefix": ["sort"],
+        "description": "sort(items.begin(), items.end());",
         "body": [
-            "if (auto it = ${1:map}.find(${2:key}); it != ${1:map}.end()){$0}"
+            "sort(${1:${TM_SELECTED_TEXT:items}}.begin(), $1.end());"
         ]
     },
-    "const_ref": {
-        "prefix": "const_ref",
-        "description": "const_ref",
-        "body": [
-            "const ${1:name}&"
-        ]
-    }
 }
